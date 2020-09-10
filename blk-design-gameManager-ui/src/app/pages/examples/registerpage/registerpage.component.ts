@@ -12,6 +12,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
   focus;
   focus1;
   focus2;
+  listaContas: UsuarioObject[];
 
   constructor(private usuario: UsuarioObject, private contasService: ContasService) {}
 
@@ -95,6 +96,24 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
 
   cadastrar(nome, email, senha) {
     this.usuario.criar(nome, email, senha);
-    this.contasService.adicionar(this.usuario);
+    this.contasService.consultar()
+      .subscribe((data: any) => { 
+
+        if(data.length === 0) {
+          this.contasService.adicionar(this.usuario);
+        }
+
+        else {
+          for (let conta of data) {
+            if (conta.email === email) {
+                console.log('email já cadastrado');
+            }
+
+            else{
+              this.contasService.adicionar(this.usuario);
+            }
+        }   
+      }     
+      })
   }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import Chart from "chart.js";
 
+import { ContasService } from 'src/app/services/contas.service';
+import { UsuarioObject } from 'src/app/objects/usuario-object';
+
 @Component({
   selector: 'app-loginpage',
   templateUrl: './loginpage.component.html',
@@ -8,8 +11,12 @@ import Chart from "chart.js";
 })
 export class LoginpageComponent implements OnInit, OnDestroy {
 
+
   isCollapsed = true;
-  constructor() {}
+  login = 0;
+
+
+  constructor(private usuario: UsuarioObject, private contasService: ContasService) {}
 
   ngOnInit() {
     var body = document.getElementsByTagName("body")[0];
@@ -117,5 +124,31 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     var body = document.getElementsByTagName("body")[0];
     body.classList.remove("landing-page");
   }
+
+  logar(email, senha) {
+    this.contasService.consultar()
+      .subscribe((data: any) => { 
+
+        if(data.length === 0) {
+          console.log("dados incorretos");
+        }
+
+        else {
+          for (let conta of data) {
+            if (conta.email === email && conta.senha === senha) {
+                this.login += 1;
+            }
+          }
+          if (this.login === 1) {
+            console.log('login efetuado com sucesso');
+          }
+          else {
+            console.log('dados incorretos')
+          }   
+        }
+        this.login = 0;
+      })
+  }
+
 }
 

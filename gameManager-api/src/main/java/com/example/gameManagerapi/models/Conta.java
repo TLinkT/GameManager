@@ -1,5 +1,6 @@
 package com.example.gameManagerapi.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +18,16 @@ public class Conta {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_conta")
 	private Long idConta;
 	
+	@Column(name="nome")
 	private String nome;
+	
+	@Column(name="email")
 	private String email;
+	
+	@Column(name="senha")
 	private String senha;
 	
 	

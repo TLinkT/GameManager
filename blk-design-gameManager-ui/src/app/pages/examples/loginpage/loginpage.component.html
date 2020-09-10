@@ -89,23 +89,6 @@
                 <form class="form">
                   <div
                     class="input-group"
-                    [ngClass]="{ 'input-group-focus': focus === true }"
-                  >
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="tim-icons icon-single-02"> </i>
-                      </div>
-                    </div>
-                    <input
-                      class="form-control"
-                      placeholder="Full Name"
-                      type="text"
-                      (focus)="focus = true"
-                      (blur)="focus = false"
-                    />
-                  </div>
-                  <div
-                    class="input-group"
                     [ngClass]="{ 'input-group-focus': focus1 === true }"
                   >
                     <div class="input-group-prepend">
@@ -113,7 +96,7 @@
                         <i class="tim-icons icon-email-85"> </i>
                       </div>
                     </div>
-                    <input
+                    <input #email
                       class="form-control"
                       placeholder="Email"
                       type="text"
@@ -130,7 +113,7 @@
                         <i class="tim-icons icon-lock-circle"> </i>
                       </div>
                     </div>
-                    <input
+                    <input #senha
                       class="form-control"
                       placeholder="Password"
                       type="text"
@@ -143,6 +126,7 @@
               <div class="card-footer">
                 <a
                   class="btn btn-danger btn-round btn-lg"
+                  (click)="logar(email.value, senha.value)"
                   href="javascript:void(0)"
                 >
                   Login
